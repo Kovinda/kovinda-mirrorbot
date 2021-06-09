@@ -64,7 +64,7 @@ class MegaAppListener(MegaListener):
         if str(error).lower() != "no error":
             self.error = error.copy()
             self.is_cancelled = True
-            self.listener.onDownloadError("\nMEGA Link you are trying to download is no longer available.")
+            self.listener.onDownloadError("\nThe MEGA Link you are trying to download is no longer available.")
             return
         request_type = request.getType()
         if request_type == MegaRequest.TYPE_LOGIN:
@@ -108,7 +108,7 @@ class MegaAppListener(MegaListener):
         filen = transfer.getFileName()
         state = transfer.getState()
         errStr = error.toString()
-        LOGGER.info(f'Mega download error in file {transfer} {filen}: {error}')
+        LOGGER.info(f'MEGA: download error in file {transfer} {filen}: {error}')
 
         if state == 1 or state == 4:
             # Sometimes MEGA (offical client) can't stream a node either and raises a temp failed error.

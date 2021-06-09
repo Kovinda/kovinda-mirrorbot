@@ -101,7 +101,7 @@ class GoogleDriveHelper:
                                      resumable=False)
         file_metadata = {
             'name': file_name,
-            'description': 'Uploaded using Slam Mirror Bot',
+            'description': 'file',
             'mimeType': mime_type,
         }
         if parent_id is not None:
@@ -121,9 +121,9 @@ class GoogleDriveHelper:
         except HttpError as err:
             LOGGER.error(str(err))
             if "File not found" in str(err):
-                msg = "No such file exist"
+                msg = "No such file exists"
             else:
-                msg = "Something went wrong check log"
+                msg = "Something went wrong check the log"
         finally:
             return msg
 
@@ -155,7 +155,7 @@ class GoogleDriveHelper:
         # File body description
         file_metadata = {
             'name': file_name,
-            'description': 'Uploaded by Slam Mirror Bot',
+            'description': 'file',
             'mimeType': mime_type,
         }
         try:
@@ -229,7 +229,7 @@ class GoogleDriveHelper:
                 mime_type = get_mime_type(file_path)
                 link = self.upload_file(file_path, file_name, mime_type, parent_id)
                 if link is None:
-                    raise Exception('Upload has been manually cancelled')
+                    raise Exception('The upload has been manually cancelled')
                 LOGGER.info("Uploaded To G-Drive: " + file_path)
             except Exception as e:
                 if isinstance(e, RetryError):
@@ -247,7 +247,7 @@ class GoogleDriveHelper:
                 dir_id = self.create_directory(os.path.basename(os.path.abspath(file_name)), parent_id)
                 result = self.upload_dir(file_path, dir_id)
                 if result is None:
-                    raise Exception('Upload has been manually cancelled!')
+                    raise Exception('The upload has been manually cancelled!')
                 LOGGER.info("Uploaded To G-Drive: " + file_name)
                 link = f"https://drive.google.com/folderview?id={dir_id}"
             except Exception as e:
@@ -520,9 +520,9 @@ class GoogleDriveHelper:
                     content += f'<b> | <a href="https://telegra.ph/{self.path[nxt_page]}">Next</a></b>'
                     nxt_page += 1
             Telegraph(access_token=telegraph_token).edit_page(path = self.path[prev_page],
-                                 title = 'Slam Mirror Bot Search',
-                                 author_name='Slam Mirror Bot',
-                                 author_url='https://github.com/breakdowns/slam-mirrorbot',
+                                 title = 'Kovindas Mirror Search',
+                                 author_name='Kovindas Mirror Bot',
+                                 author_url='https://t.me/kovinda_thisal',
                                  html_content=content)
         return
 
@@ -605,12 +605,12 @@ class GoogleDriveHelper:
 
             for content in self.telegraph_content :
                 self.path.append(Telegraph(access_token=telegraph_token).create_page(
-                                                        title = 'Slam Mirror Bot Search',
-                                                        author_name='Slam Mirror Bot',
-                                                        author_url='https://github.com/breakdowns/slam-mirrorbot',
+                                                        title = 'Kovindas Mirror Search',
+                                                        author_name='Kovindas Mirror Bot',
+                                                        author_url='https://t.me/kovinda_thisal',
                                                         html_content=content
                                                         )['path'])
-
+                                                        
             self.num_of_path = len(self.path)
             if self.num_of_path > 1:
                 self.edit_telegraph()
@@ -724,4 +724,3 @@ class GoogleDriveHelper:
                 msg = f"Error.\n{err}"
             return msg, "", ""
         return "", clonesize, name
-

@@ -54,11 +54,12 @@ def start(update, context):
     start_string = f'''
 This bot can mirror all your links to Google Drive!
 Type /{BotCommands.HelpCommand} to get a list of available commands
+
+Made with 💗 by Kovinda Thisal
 '''
     buttons = button_build.ButtonMaker()
-    buttons.buildbutton("Repo", "https://github.com/breakdowns/slam-mirrorbot")
-    buttons.buildbutton("Support Group", "https://t.me/SlamMirrorSupport")
-    reply_markup = InlineKeyboardMarkup(buttons.build_menu(2))
+    buttons.buildbutton("Contact Owner", "https://t.me/kovinda_thisal")
+    reply_markup = InlineKeyboardMarkup(buttons.build_menu(1))
     LOGGER.info('UID: {} - UN: {} - MSG: {}'.format(update.message.chat.id, update.message.chat.username, update.message.text))
     if CustomFilters.authorized_user(update) or CustomFilters.authorized_chat(update):
         if update.message.chat.type == "private" :
@@ -66,7 +67,7 @@ Type /{BotCommands.HelpCommand} to get a list of available commands
         else :
             update.effective_message.reply_photo(IMAGE_URL, start_string, parse_mode=ParseMode.MARKDOWN, reply_markup=reply_markup)
     else :
-        sendMessage(f"Oops! not a Authorized user.", context.bot, update)
+        sendMessage(f"Oops! you're not an Authorized user.", context.bot, update)
 
 
 @run_async
